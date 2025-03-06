@@ -9,6 +9,7 @@ import (
 type Env struct {
 	TelegramToken string `mapstructure:"TELEGRAM_TOKEN"`
 	DbURI         string `mapstructure:"DB_URI"`
+	Port          string `mapstructure:"PORT"`
 }
 
 func LoadEnv() *Env {

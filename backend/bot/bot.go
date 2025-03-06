@@ -9,23 +9,20 @@ import (
 	"github.com/go-telegram/bot/models"
 )
 
-var (
-	env = config.LoadEnv()
-)
-
 type CoffeeBot struct {
-	bot   *bot.Bot
-	store *db.Store
+	config *config.Env
+	bot    *bot.Bot
+	store  *db.Store
 }
 
-func NewBot(store *db.Store) (*CoffeeBot, error) {
-	coffeeBot := &CoffeeBot{store: store}
+func NewBot(store *db.Store, config *config.Env) (*CoffeeBot, error) {
+	coffeeBot := &CoffeeBot{store: store, config: config}
 
 	opts := []bot.Option{
 		bot.WithDefaultHandler(coffeeBot.defaultHandler),
 	}
 
-	b, err := bot.New(env.TelegramToken, opts...)
+	b, err := bot.New(coffeeBot.config.TelegramToken, opts...)
 	if err != nil {
 		return nil, err
 	}

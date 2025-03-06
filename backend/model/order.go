@@ -9,11 +9,11 @@ type OrderItem struct {
 	Name  string        `bson:"item_name"`
 	Price float32       `bson:"item_price"`
 }
-
 type Order struct {
 	ID        bson.ObjectID `bson:"_id"`
 	UserID    bson.ObjectID `bson:"user_id"`
 	Quantity  int           `bson:"quantity"`
 	Items     []OrderItem   `bson:"items"`
+	OrderType string        `bson:"order_type"`
 	createdAt bson.DateTime `bson:"createdAt"`
 }

@@ -21,7 +21,7 @@ func (s *CoffeeBot) registerOrder() {
 func (s *CoffeeBot) ViewOrderHandler(ctx context.Context, b *bot.Bot, update *models.Update) {
 
 	telegramId := update.CallbackQuery.From.ID
-	orders, err := s.store.FindAllOrdersByTelegramId(telegramId)
+	orders, err := s.store.FindAllOrdersByTelegramId(ctx, telegramId)
 	if err != nil {
 		log.Printf("Could not retrieve orders %s", err.Error())
 		b.AnswerCallbackQuery(ctx, &bot.AnswerCallbackQueryParams{
