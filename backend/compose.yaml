@@ -1,0 +1,11 @@
+services:
+  db:
+    container_name: coffee_db
+    image: mongo
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mongo
+      - MONGO_INITDB_ROOT_PASSWORD=mongo
+      - MONGO_INITDB_DATABASE=coffee
+    ports:
+      - 27017:27017
