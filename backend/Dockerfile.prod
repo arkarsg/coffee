@@ -2,6 +2,7 @@
 FROM golang:1.24.1-alpine3.20 AS builder
 WORKDIR /app
 COPY . .
+COPY /etc/secrets/.env .env
 ENV GIN_MODE release
 RUN go build -o main ./cmd/*.go
 
@@ -10,7 +11,6 @@ FROM alpine:3.19
 WORKDIR /app
 COPY --from=builder /app/main .
 COPY start.sh .
-COPY /etc/secrets/.env .
 
 EXPOSE 8080
 CMD ["/app/main"]
