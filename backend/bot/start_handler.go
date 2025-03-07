@@ -17,7 +17,7 @@ func (s *CoffeeBot) registerStart() {
 }
 
 func (s *CoffeeBot) StartHandler(ctx context.Context, b *bot.Bot, update *models.Update) {
-	s.store.CreateUser(*update.Message.From)
+	s.store.CreateUser(ctx, *update.Message.From)
 
 	kb := &models.InlineKeyboardMarkup{
 		InlineKeyboard: [][]models.InlineKeyboardButton{
@@ -40,7 +40,7 @@ func (s *CoffeeBot) StartHandler(ctx context.Context, b *bot.Bot, update *models
 
 func (s *CoffeeBot) WhoamiHandler(ctx context.Context, b *bot.Bot, update *models.Update) {
 	log.Printf("%d %s", update.Message.From.ID, update.Message.From.Username)
-	user, err := s.store.FindUserByTelegramID(update.Message.From.ID)
+	user, err := s.store.FindUserByTelegramID(ctx, update.Message.From.ID)
 
 	if err != nil {
 		b.SendMessage(ctx, &bot.SendMessageParams{

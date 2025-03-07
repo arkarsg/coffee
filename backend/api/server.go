@@ -3,9 +3,12 @@ package api
 import (
 	"coffeh/config"
 	"coffeh/db"
+	"coffeh/model"
 	"fmt"
 
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
+	"github.com/go-playground/validator/v10"
 )
 
 type APIServer struct {
@@ -30,6 +33,7 @@ func (s *APIServer) initRoutes() {
 	// Register API routes here
 	s.registerPing()
 	s.registerOrder()
+	s.registerDrink()
 }
 
 func NewApiServer(store *db.Store, config *config.Env) (*APIServer, error) {
@@ -39,6 +43,11 @@ func NewApiServer(store *db.Store, config *config.Env) (*APIServer, error) {
 	}
 
 	server.initRoutes()
+
+	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
+		v.RegisterValidation("valid_drinkvariant", model.ValidateDrinkVariant)
+		v.RegisterValidation("valid_drinkcategory", model.ValidateDrinkCategory)
+	}
 
 	return server, nil
 }

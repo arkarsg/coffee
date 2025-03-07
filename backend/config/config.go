@@ -6,6 +6,12 @@ import (
 	"github.com/spf13/viper"
 )
 
+const (
+	MAX_ORDER_ITEMS    = 10
+	ICED_SURCHARGE     = 0.50
+	TAKEAWAY_SURCHARGE = 0.50
+)
+
 type Env struct {
 	TelegramToken string `mapstructure:"TELEGRAM_TOKEN"`
 	DbURI         string `mapstructure:"DB_URI"`
