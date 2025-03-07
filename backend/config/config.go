@@ -2,14 +2,17 @@ package config
 
 import (
 	"log"
+	"time"
 
 	"github.com/spf13/viper"
 )
 
 const (
-	MAX_ORDER_ITEMS    = 10
-	ICED_SURCHARGE     = 0.50
-	TAKEAWAY_SURCHARGE = 0.50
+	MAX_ORDER_ITEMS               = 10
+	ICED_SURCHARGE                = 0.50
+	TAKEAWAY_SURCHARGE            = 0.50
+	TELEGRAM_INIT_DATA_EXPIRATION = 24 * time.Hour // 1 day
+	TG_AUTH_OUTPUT_KEY            = "tg-authOutput"
 )
 
 type Env struct {
