@@ -10,7 +10,6 @@ FROM alpine:3.19
 WORKDIR /app
 COPY --from=builder /app/main .
 COPY start.sh .
-COPY .env .
 
 EXPOSE 8080
 CMD ["/app/main"]
