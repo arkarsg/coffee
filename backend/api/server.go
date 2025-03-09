@@ -32,7 +32,7 @@ func (s *APIServer) initRoutes() {
 	s.router = r
 	s.apiRoutes = apiRoutes
 
-	// s.setupCORS()
+	s.setupCORS()
 
 	// Register API routes here
 	s.registerPing()
