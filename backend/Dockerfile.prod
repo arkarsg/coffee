@@ -1,13 +1,16 @@
+# syntax = docker/dockerfile:1.2
+
 # build stage
 FROM golang:1.24.1-alpine3.20 AS builder
+RUN --mount=type=secret,id=_env,dst=/etc/secrets/.env cat /etc/secrets/.env
 WORKDIR /app
-COPY . .
 COPY /etc/secrets/.env .env
+COPY . .
 ENV GIN_MODE release
 RUN go build -o main ./cmd/*.go
 
 # run stage
-FROM alpine:3.19
+FROM alpine:3.20
 WORKDIR /app
 COPY --from=builder /app/main .
 COPY start.sh .
