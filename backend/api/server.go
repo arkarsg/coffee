@@ -26,13 +26,13 @@ type Response struct {
 
 func (s *APIServer) initRoutes() {
 	r := gin.Default()
-	apiRoutes := r.Group("/api")
-	// apiRoutes.Use(middleware.IsTelegramUser(s.config, s.store))
 
 	s.router = r
-	s.apiRoutes = apiRoutes
-
 	s.setupCORS()
+
+	apiRoutes := r.Group("/api")
+	// apiRoutes.Use(middleware.IsTelegramUser(s.config, s.store))
+	s.apiRoutes = apiRoutes
 
 	// Register API routes here
 	s.registerPing()
@@ -63,7 +63,10 @@ func (s *APIServer) Start() error {
 
 func (s *APIServer) setupCORS() {
 	corsConfig := cors.Config{
-		AllowOrigins:     []string{"*"},
+		AllowOrigins: []string{
+			"http://localhost:5173",
+			"https://*.ngrok-free.app",
+		},
 		AllowMethods:     []string{"GET", "POST", "OPTIONS"},
 		AllowHeaders:     []string{"Content-Type", "Authorization", "X-Requested-With", "Accept", "Origin"},
 		AllowCredentials: true,
