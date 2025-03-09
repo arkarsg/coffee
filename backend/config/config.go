@@ -2,6 +2,7 @@ package config
 
 import (
 	"log"
+	"os"
 	"time"
 
 	"github.com/spf13/viper"
@@ -22,8 +23,9 @@ type Env struct {
 }
 
 func LoadEnv() *Env {
+	envPath := os.Getenv("ENV_PATH")
 	env := Env{}
-	viper.SetConfigFile(".env")
+	viper.SetConfigFile(envPath)
 
 	err := viper.ReadInConfig()
 	if err != nil {
